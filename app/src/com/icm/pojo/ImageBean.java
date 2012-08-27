@@ -6,6 +6,7 @@ import java.net.URL;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import com.icm.Constants;
 import com.icm.DownloadTask;
 
 
@@ -13,7 +14,7 @@ public class ImageBean implements Serializable {
 	
 	private static final long serialVersionUID = -6617064921026112609L;
 
-	private static final String baseURL = "http://192.168.8.146/chunky/images/";
+	private static final String baseURL = Constants.SERVER_ROOT + "images/";
 
 	public int pic_id;
 	public String user;
