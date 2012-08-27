@@ -51,12 +51,14 @@ public class AnswerActivity extends SherlockActivity {
 		final EditText answerEditText = (EditText) findViewById(R.id.editTextAnswer);
 		
 		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
+			@Override
+      public void onClick(View v) {
 				new Thread(){
-					public void run(){
+					@Override
+          public void run(){
 
 						HttpClient client = new DefaultHttpClient();
-						HttpPost post = new HttpPost("http://192.168.8.146/chunky/newanswer.php");
+						HttpPost post = new HttpPost(Constants.SERVER_ROOT + "newanswer.php");
 						
 						try { 
 							List<NameValuePair> pairs = new ArrayList<NameValuePair>();

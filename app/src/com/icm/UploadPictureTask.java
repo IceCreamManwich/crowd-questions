@@ -26,7 +26,7 @@ public class UploadPictureTask extends AsyncTask<UploadArgs, Void, Void> {
 
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://192.168.8.146/chunky/upload.php");
+        HttpPost httppost = new HttpPost(Constants.SERVER_ROOT + "upload.php");
 
         try {
             // Add your data
