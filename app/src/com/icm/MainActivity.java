@@ -1,7 +1,5 @@
 package com.icm;
 
-import java.net.URL;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +16,9 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.icm.pojo.BeanLoader;
 import com.icm.pojo.ImageBean;
 import com.icm.pojo.ResultBean;
-import com.icm.util.GsonStuff;
 
 public class MainActivity extends SherlockListActivity {
 
@@ -30,20 +28,13 @@ public class MainActivity extends SherlockListActivity {
 	protected void onResume() {
 		super.onResume();
 		
-		ResultBeanTask task = new ResultBeanTask() {
-
+		new BeanLoader<ResultBean>() {
 			@Override
-			protected void onPostExecute(ResultBean result) {
-				MainActivity.this.postPicturesLoad(result);
+			protected void beanLoaded(ResultBean result) {
+				MainActivity.this.postPicturesLoad(result);		
 			}
-        	
-        };
-        try {
-			task.execute(new URL(GsonStuff.picturesUrl));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			Log.e("MainActivity", "Exception", e);
-		}
+		}.loadBean(ResultBean.class, BeanLoader.picturesUrl);
+		
 	}
 
 
