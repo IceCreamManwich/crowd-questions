@@ -95,8 +95,7 @@ public class AnswerActivity extends SherlockActivity implements Callback<AnswerR
 				array[i] = resultBean.result[i].user + " -- " + resultBean.result[i].answer;
 			}
 
-			ListAdapter adapter = new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_1, array);
+			ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array);
 			listView.setAdapter(adapter);
 		}
 	}

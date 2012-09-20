@@ -14,6 +14,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.icm.pojo.UploadArgs;
+
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Base64;

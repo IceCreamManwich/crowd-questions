@@ -1,22 +1,18 @@
-package com.icm;
+package com.icm.activity.main;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.icm.AnswerActivity;
+import com.icm.R;
+import com.icm.TakePictureActivity;
 import com.icm.pojo.BeanLoader;
 import com.icm.pojo.ImageBean;
 import com.icm.pojo.ResultBean;
@@ -25,8 +21,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class MainActivity extends SherlockListActivity implements BeanLoader.Callback<ResultBean>{
-
-	ImageBean beans[] = null;
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -54,41 +48,8 @@ public class MainActivity extends SherlockListActivity implements BeanLoader.Cal
 
 	@Override
 	public void beanLoaded(ResultBean bean) {
-		final Activity context = this;
-        final ImageBean beans[];
-        if (bean != null) { 
-        	beans = bean.result;
-        } else { 
-        	Log.d("main", "bean was null!");
-        	beans = null;
-        }
-        this.beans = beans;
-        
-        ListAdapter adapter = new ArrayAdapter<ImageBean>(this, R.layout.table_main_row, beans){
-        	
-        	@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-				View row = convertView;
-				if (convertView == null) {
-					LayoutInflater inflater = context.getLayoutInflater();
-					row = inflater.inflate(R.layout.table_main_row, null);
-				}
-					
-					ImageBean bean = getItem(position);
-					ImageView imageView = (ImageView) row.findViewById(R.id.row_imageView);
-					
-					ImageLoader.getInstance().displayImage(ImageBean.baseURL + bean.path, imageView);
-				
-					TextView textView = (TextView) row.findViewById(R.id.row_textView);
-					textView.setText(bean.user + " -- " + bean.question);
-					
-				return row;
-				
-			}
-        	
-        };
-        
-        
+		
+        ListAdapter adapter = new MainActivityListAdapter(this, R.layout.table_main_row, bean.result);
         setListAdapter(adapter);
 	}
 	
@@ -100,9 +61,11 @@ public class MainActivity extends SherlockListActivity implements BeanLoader.Cal
 		Intent intent = new Intent();
 		intent.setClass(this, AnswerActivity.class);
 		
-		intent.putExtra("id", beans[(int)id].pic_id);
-		intent.putExtra("question", beans[(int)id].question);
-		intent.putExtra("path", beans[(int)id].path);
+		ImageBean bean = (ImageBean) getListAdapter().getItem((int)id);
+		
+		intent.putExtra("id", bean.pic_id);
+		intent.putExtra("question", bean.question);
+		intent.putExtra("path", bean.path);
 		
 		
 		startActivity(intent);
