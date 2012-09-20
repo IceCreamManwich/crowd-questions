@@ -10,7 +10,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,9 +22,10 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.icm.pojo.BeanLoader;
 import com.icm.pojo.AnswerResultBean;
+import com.icm.pojo.BeanLoader;
 import com.icm.pojo.ImageBean;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class AnswerActivity extends SherlockActivity {
 
@@ -46,13 +46,10 @@ public class AnswerActivity extends SherlockActivity {
 			}
 		}.loadBean(AnswerResultBean.class, BeanLoader.answersUrl + "?pic_id=" + id);
 
-		ImageBean bean = new ImageBean();
-		bean.path = path;
-		Drawable drawable = bean.loadDrawable();
-
+		
 		ImageView imageView = (ImageView) findViewById(R.id.answer_imageView);
-		imageView.setImageDrawable(drawable);
-
+		ImageLoader.getInstance().displayImage(ImageBean.baseURL + path, imageView);
+		
 		final EditText answerEditText = (EditText) findViewById(R.id.editTextAnswer);
 
 		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {

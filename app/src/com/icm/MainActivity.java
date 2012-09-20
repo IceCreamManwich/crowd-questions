@@ -3,6 +3,7 @@ package com.icm;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +20,30 @@ import com.actionbarsherlock.view.MenuItem;
 import com.icm.pojo.BeanLoader;
 import com.icm.pojo.ImageBean;
 import com.icm.pojo.ResultBean;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class MainActivity extends SherlockListActivity {
 
 	ImageBean beans[] = null;
+	
+	@Override
+	protected void onCreate(Bundle bundle) {
+		super.onCreate(bundle);
+		
+		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+	        .cacheInMemory()
+	        .cacheOnDisc()
+	        .build();
+
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+			.defaultDisplayImageOptions(defaultOptions)
+			.enableLogging()
+			.build();
+		
+		ImageLoader.getInstance().init(config);
+	}
 
 	@Override
 	protected void onResume() {
@@ -62,7 +83,8 @@ public class MainActivity extends SherlockListActivity {
 					
 					ImageBean bean = getItem(position);
 					ImageView imageView = (ImageView) row.findViewById(R.id.row_imageView);
-					imageView.setImageDrawable(bean.loadDrawable());
+					
+					ImageLoader.getInstance().displayImage(ImageBean.baseURL + bean.path, imageView);
 				
 					TextView textView = (TextView) row.findViewById(R.id.row_textView);
 					textView.setText(bean.user + " -- " + bean.question);

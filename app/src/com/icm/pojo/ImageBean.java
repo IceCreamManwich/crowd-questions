@@ -14,7 +14,7 @@ public class ImageBean implements Serializable {
 	
 	private static final long serialVersionUID = -6617064921026112609L;
 
-	private static final String baseURL = Constants.SERVER_ROOT + "images/";
+	public static final String baseURL = Constants.SERVER_ROOT + "images/";
 
 	public int pic_id;
 	public String user;
