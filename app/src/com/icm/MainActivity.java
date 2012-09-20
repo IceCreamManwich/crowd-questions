@@ -24,7 +24,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-public class MainActivity extends SherlockListActivity {
+public class MainActivity extends SherlockListActivity implements BeanLoader.Callback<ResultBean>{
 
 	ImageBean beans[] = null;
 	
@@ -49,18 +49,11 @@ public class MainActivity extends SherlockListActivity {
 	protected void onResume() {
 		super.onResume();
 		
-		new BeanLoader<ResultBean>() {
-			@Override
-			protected void beanLoaded(ResultBean result) {
-				MainActivity.this.postPicturesLoad(result);		
-			}
-		}.loadBean(ResultBean.class, BeanLoader.picturesUrl);
-		
+		BeanLoader.loadBean(ResultBean.class, BeanLoader.picturesUrl, this);
 	}
 
-
-
-	void postPicturesLoad(ResultBean bean) {
+	@Override
+	public void beanLoaded(ResultBean bean) {
 		final Activity context = this;
         final ImageBean beans[];
         if (bean != null) { 
@@ -98,8 +91,7 @@ public class MainActivity extends SherlockListActivity {
         
         setListAdapter(adapter);
 	}
-    
-    
+	
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {

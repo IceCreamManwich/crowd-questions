@@ -24,10 +24,11 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.icm.pojo.AnswerResultBean;
 import com.icm.pojo.BeanLoader;
+import com.icm.pojo.BeanLoader.Callback;
 import com.icm.pojo.ImageBean;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class AnswerActivity extends SherlockActivity {
+public class AnswerActivity extends SherlockActivity implements Callback<AnswerResultBean>{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +40,7 @@ public class AnswerActivity extends SherlockActivity {
 		String path = getIntent().getStringExtra("path");
 		final int id = getIntent().getIntExtra("id", 1);
 
-		new BeanLoader<AnswerResultBean>() {
-			@Override
-			protected void beanLoaded(AnswerResultBean result) {
-				AnswerActivity.this.setTheListAdapter(result);
-			}
-		}.loadBean(AnswerResultBean.class, BeanLoader.answersUrl + "?pic_id=" + id);
-
+		BeanLoader.loadBean(AnswerResultBean.class, BeanLoader.answersUrl + "?pic_id=" + id, this);
 		
 		ImageView imageView = (ImageView) findViewById(R.id.answer_imageView);
 		ImageLoader.getInstance().displayImage(ImageBean.baseURL + path, imageView);
@@ -82,19 +77,22 @@ public class AnswerActivity extends SherlockActivity {
 			}
 		});
 	}
+	
 
-	private void setTheListAdapter(AnswerResultBean resultBean) {
 
+	@Override
+	public void beanLoaded(AnswerResultBean resultBean) {
 		final ListView listView = (ListView) findViewById(R.id.answer_list_view);
 
-		if (resultBean != null) {
-			TextView textView = (TextView) findViewById(R.id.answer_questionTextView);
-			textView.setText(getIntent().getStringExtra("question"));
+
+		TextView textView = (TextView) findViewById(R.id.answer_questionTextView);
+		textView.setText(getIntent().getStringExtra("question"));
+		
+		if (resultBean != null && resultBean.result != null) {
 
 			String array[] = new String[Math.min(resultBean.result.length, 3)];
 			for (int i = 0; i < resultBean.result.length && i < 3; i++) {
-				array[i] = resultBean.result[i].user + " -- "
-						+ resultBean.result[i].answer;
+				array[i] = resultBean.result[i].user + " -- " + resultBean.result[i].answer;
 			}
 
 			ListAdapter adapter = new ArrayAdapter<String>(this,
