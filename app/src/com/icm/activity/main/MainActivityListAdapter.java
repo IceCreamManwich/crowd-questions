@@ -12,7 +12,8 @@ import com.icm.R;
 import com.icm.pojo.ImageBean;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class MainActivityListAdapter extends ArrayAdapter<ImageBean> {
+/* package private */ 
+class MainActivityListAdapter extends ArrayAdapter<ImageBean> {
 	
 	final LayoutInflater layoutInflater;
 

@@ -1,11 +1,10 @@
-package com.icm;
+package com.icm.activity.picture;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -14,13 +13,15 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.icm.pojo.UploadArgs;
-
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Base64;
 
-public class UploadPictureTask extends AsyncTask<UploadArgs, Void, Void> {
+import com.icm.Constants;
+import com.icm.pojo.UploadArgs;
+
+/* package private */
+class UploadPictureTask extends AsyncTask<UploadArgs, Void, Void> {
 
 	@Override
 	protected Void doInBackground(UploadArgs... args) {
@@ -46,7 +47,8 @@ public class UploadPictureTask extends AsyncTask<UploadArgs, Void, Void> {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             // Execute HTTP Post Request
-            HttpResponse response = httpclient.execute(httppost);
+            httpclient.execute(httppost);
+            
         } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
         } catch (IOException e) {

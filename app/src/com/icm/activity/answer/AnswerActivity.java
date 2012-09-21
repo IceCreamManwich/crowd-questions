@@ -1,4 +1,4 @@
-package com.icm;
+package com.icm.activity.answer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.icm.Constants;
+import com.icm.R;
 import com.icm.pojo.AnswerResultBean;
 import com.icm.pojo.BeanLoader;
 import com.icm.pojo.BeanLoader.Callback;

@@ -1,11 +1,5 @@
-package com.icm;
+package com.icm.activity.picture;
 
-
-import org.apache.http.HttpVersion;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.params.HttpParams;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,6 +19,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.icm.R;
 import com.icm.pojo.UploadArgs;
 
 public class TakePictureActivity extends SherlockActivity {
@@ -37,17 +32,11 @@ public class TakePictureActivity extends SherlockActivity {
 	private EditText userName;
 	private Bitmap uploadedImage;
 	
-	private DefaultHttpClient mHttpClient;
-	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         uploadedImage = null;
-        
-        HttpParams params = new BasicHttpParams();
-        params.setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-        mHttpClient = new DefaultHttpClient(params);
         
         setContentView(R.layout.activity_takepicture);
 		getSupportActionBar().setHomeButtonEnabled(true);
