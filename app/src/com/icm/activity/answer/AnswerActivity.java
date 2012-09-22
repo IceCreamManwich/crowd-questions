@@ -8,17 +8,16 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.gson.Gson;
 import com.icm.R;
+import com.icm.pojo.AnswerBean;
 import com.icm.pojo.AnswerResultBean;
 import com.icm.pojo.BeanLoader;
 import com.icm.pojo.BeanLoader.Callback;
@@ -26,6 +25,8 @@ import com.icm.pojo.ImageBean;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class AnswerActivity extends SherlockActivity implements Callback<AnswerResultBean>{
+	
+	private ImageBean bean;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class AnswerActivity extends SherlockActivity implements Callback<AnswerR
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		String json = getIntent().getStringExtra("imagebean");
-		final ImageBean bean = new Gson().fromJson(json, ImageBean.class);
+		this.bean = new Gson().fromJson(json, ImageBean.class);
 		
 		BeanLoader.loadBean(AnswerResultBean.class, BeanLoader.answersUrl + "?pic_id=" + bean.pic_id, this);
 		
@@ -57,31 +58,30 @@ public class AnswerActivity extends SherlockActivity implements Callback<AnswerR
 
 				UploadAnswerTask uploadTask = new UploadAnswerTask(AnswerActivity.this);
 				uploadTask.execute(pairs);
-				
+				finish();
 			}
 		});
 	}
 	
 
-
 	@Override
 	public void beanLoaded(AnswerResultBean resultBean) {
-		final ListView listView = (ListView) findViewById(R.id.answer_list_view);
-
 
 		TextView textView = (TextView) findViewById(R.id.answer_questionTextView);
-		textView.setText(getIntent().getStringExtra("question"));
+		textView.setText(this.bean.question);
+
+		final TableLayout tableLayout = (TableLayout) findViewById(R.id.answer_tablelayout);
 		
-		if (resultBean != null && resultBean.result != null) {
-
-			String array[] = new String[Math.min(resultBean.result.length, 3)];
-			for (int i = 0; i < resultBean.result.length && i < 3; i++) {
-				array[i] = resultBean.result[i].user + " -- " + resultBean.result[i].answer;
-			}
-
-			ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array);
-			listView.setAdapter(adapter);
+		for(AnswerBean answerBean : resultBean.result) {
+			
+			View row = getLayoutInflater().inflate(R.layout.answer_row, tableLayout, false);
+			
+			TextView answerView = (TextView) row.findViewById(R.id.answerText);
+			answerView.setText(answerBean.user + " -- " + answerBean.answer);
+			
+			tableLayout.addView(row);
 		}
+		
 	}
 
 	@Override

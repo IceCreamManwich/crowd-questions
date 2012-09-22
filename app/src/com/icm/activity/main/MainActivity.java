@@ -35,7 +35,7 @@ public class MainActivity extends SherlockListActivity implements BeanLoader.Cal
 
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
 			.defaultDisplayImageOptions(defaultOptions)
-			.enableLogging()
+		  //.enableLogging()
 			.build();
 		
 		ImageLoader.getInstance().init(config);
