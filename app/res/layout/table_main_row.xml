@@ -20,7 +20,3 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
 </RelativeLayout>
-
-<!-- 
-android:layout_width="150dp"
--->
