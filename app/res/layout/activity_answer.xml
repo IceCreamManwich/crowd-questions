@@ -38,7 +38,6 @@
         android:layout_marginTop="18dp"
         android:ems="10" >
 
-        <requestFocus />
     </EditText>
     
     <Button

@@ -24,11 +24,11 @@
         </activity>
         
         <activity
-            android:name=".TakePictureActivity"
+            android:name=".activity.picture.TakePictureActivity"
             android:label="Take a picture!" />
 
         <activity
-            android:name=".AnswerActivity"
+            android:name=".activity.answer.AnswerActivity"
             android:label="Answer this question?" />
         
     </application>

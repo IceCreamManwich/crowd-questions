@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.gson.Gson;
 import com.icm.R;
 import com.icm.activity.answer.AnswerActivity;
 import com.icm.activity.picture.TakePictureActivity;
@@ -29,6 +30,7 @@ public class MainActivity extends SherlockListActivity implements BeanLoader.Cal
 		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
 	        .cacheInMemory()
 	        .cacheOnDisc()
+	        .resetViewBeforeLoading()
 	        .build();
 
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
@@ -57,17 +59,11 @@ public class MainActivity extends SherlockListActivity implements BeanLoader.Cal
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
+
+		String json = new Gson().toJson(getListAdapter().getItem((int)id), ImageBean.class);
 		
-		Intent intent = new Intent();
-		intent.setClass(this, AnswerActivity.class);
-		
-		ImageBean bean = (ImageBean) getListAdapter().getItem((int)id);
-		
-		intent.putExtra("id", bean.pic_id);
-		intent.putExtra("question", bean.question);
-		intent.putExtra("path", bean.path);
-		
-		
+		Intent intent = new Intent(this, AnswerActivity.class);
+		intent.putExtra("imagebean", json);		
 		startActivity(intent);
 	}
 
