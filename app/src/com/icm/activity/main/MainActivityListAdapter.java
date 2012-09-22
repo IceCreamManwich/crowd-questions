@@ -28,8 +28,11 @@ class MainActivityListAdapter extends ArrayAdapter<ImageBean> {
 		if (row == null) {
 			row = this.layoutInflater.inflate(R.layout.table_main_row, null);
 		}
+		
+		int maxWidth = (int) (((float)parent.getWidth()) * 0.4);
 			
 		ImageView imageView = (ImageView) row.findViewById(R.id.row_imageView);
+		imageView.setMaxWidth(maxWidth);
 		
 		ImageBean bean = getItem(position);
 		ImageLoader.getInstance().displayImage(ImageBean.baseURL + bean.path, imageView);
