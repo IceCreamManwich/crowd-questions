@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.icm.Constants;
 import com.icm.R;
 import com.icm.pojo.ImageBean;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -35,7 +36,7 @@ class MainActivityListAdapter extends ArrayAdapter<ImageBean> {
 		imageView.setMaxWidth(maxWidth);
 		
 		ImageBean bean = getItem(position);
-		ImageLoader.getInstance().displayImage(ImageBean.baseURL + bean.path, imageView);
+		ImageLoader.getInstance().displayImage(Constants.IMAGES_DIRECTORY + bean.path, imageView);
 	
 		TextView textView = (TextView) row.findViewById(R.id.row_textView);
 		textView.setText(bean.user + " -- " + bean.question);

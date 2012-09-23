@@ -9,12 +9,8 @@ import java.net.URL;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
-import com.icm.Constants;
 
 public final class BeanLoader {
-
-	public static final String picturesUrl = Constants.SERVER_ROOT + "pictures.php";
-	public static final String answersUrl = Constants.SERVER_ROOT + "answers.php";
 	
 	public interface Callback<T> {
 		public void beanLoaded(T bean);

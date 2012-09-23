@@ -30,7 +30,7 @@ class UploadPictureTask extends AsyncTask<UploadArgs, Void, Void> {
 
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost(Constants.SERVER_ROOT + "upload.php");
+        HttpPost httppost = new HttpPost(Constants.UPLOAD_URL);
 
         try {
         	

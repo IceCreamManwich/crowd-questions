@@ -24,7 +24,7 @@ public class UploadAnswerTask extends AsyncTask<List<NameValuePair>, Void, HttpR
 	@Override
 	protected HttpResponse doInBackground(List<NameValuePair>... pairs) {
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(Constants.SERVER_ROOT + "newanswer.php");
+		HttpPost post = new HttpPost(Constants.NEW_ANSWER_URL);
 		
 		try {
 			post.setEntity(new UrlEncodedFormEntity(pairs[0]));

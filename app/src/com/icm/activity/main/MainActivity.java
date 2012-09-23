@@ -11,6 +11,7 @@ import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.gson.Gson;
+import com.icm.Constants;
 import com.icm.R;
 import com.icm.activity.answer.AnswerActivity;
 import com.icm.activity.picture.TakePictureActivity;
@@ -45,7 +46,7 @@ public class MainActivity extends SherlockListActivity implements BeanLoader.Cal
 	protected void onResume() {
 		super.onResume();
 		
-		BeanLoader.loadBean(ResultBean.class, BeanLoader.picturesUrl, this);
+		BeanLoader.loadBean(ResultBean.class, Constants.PICTURES_URL, this);
 	}
 
 	@Override

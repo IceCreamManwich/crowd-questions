@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.gson.Gson;
+import com.icm.Constants;
 import com.icm.R;
 import com.icm.pojo.AnswerBean;
 import com.icm.pojo.AnswerResultBean;
@@ -38,10 +39,10 @@ public class AnswerActivity extends SherlockActivity implements Callback<AnswerR
 		String json = getIntent().getStringExtra("imagebean");
 		this.bean = new Gson().fromJson(json, ImageBean.class);
 		
-		BeanLoader.loadBean(AnswerResultBean.class, BeanLoader.answersUrl + "?pic_id=" + bean.pic_id, this);
+		BeanLoader.loadBean(AnswerResultBean.class, Constants.ANSWERS_URL + bean.pic_id, this);
 		
 		ImageView imageView = (ImageView) findViewById(R.id.answer_imageView);
-		ImageLoader.getInstance().displayImage(ImageBean.baseURL + bean.path, imageView);
+		ImageLoader.getInstance().displayImage(Constants.IMAGES_DIRECTORY + bean.path, imageView);
 		
 		final EditText answerEditText = (EditText) findViewById(R.id.editTextAnswer);
 
