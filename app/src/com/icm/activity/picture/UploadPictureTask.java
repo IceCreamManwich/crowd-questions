@@ -2,6 +2,7 @@ package com.icm.activity.picture;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,15 +35,17 @@ class UploadPictureTask extends AsyncTask<UploadArgs, Void, Void> {
 
         try {
         	
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            arg.image.compress(Bitmap.CompressFormat.JPEG, 90, new Base64OutputStream(baos, Base64.DEFAULT));
+            OutputStream os = new ByteArrayOutputStream();
+            Base64OutputStream boss = new Base64OutputStream(os, Base64.DEFAULT);
+            arg.image.compress(Bitmap.CompressFormat.JPEG, 90, boss);
             
             // apparently we need to flush?
-            baos.flush();
+            boss.flush(); boss = null;
+            os.flush();
             
             // Add your data
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);            
-            nameValuePairs.add(new BasicNameValuePair("file", baos.toString()));
+            nameValuePairs.add(new BasicNameValuePair("file", os.toString()));
             nameValuePairs.add(new BasicNameValuePair("username", arg.username));
             nameValuePairs.add(new BasicNameValuePair("question", arg.question));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

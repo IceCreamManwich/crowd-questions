@@ -30,7 +30,7 @@ public class MainActivity extends SherlockListActivity implements BeanLoader.Cal
 		
 		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
 	        .cacheInMemory()
-	        .cacheOnDisc()
+	      //.cacheOnDisc()
 	        .resetViewBeforeLoading()
 	        .build();
 
