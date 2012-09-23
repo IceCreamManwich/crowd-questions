@@ -1,5 +1,6 @@
 package com.icm.activity.picture;
 
+import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,6 +21,7 @@ import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivit
 import com.icm.R;
 import com.icm.pojo.UploadArgs;
 
+@ContentView(R.layout.activity_takepicture)
 public class TakePictureActivity extends RoboSherlockActivity {
 	
 	private static final int CAMERA_REQUEST = 1000;
@@ -46,7 +48,6 @@ public class TakePictureActivity extends RoboSherlockActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_takepicture);
         
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
