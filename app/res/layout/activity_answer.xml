@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-	<TableLayout
+	<com.icm.activity.answer.AnswerTableLayout
 	    android:id="@+id/ansTableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
