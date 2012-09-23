@@ -29,20 +29,13 @@ public class TakePictureActivity extends RoboSherlockActivity {
 	
 	private Bitmap uploadedImage = null;
 
-	@InjectView(R.id.imageView1) 		
-	ImageView 	imageView;
-	@InjectView(R.id.userName) 			
-	EditText 	userName;
-	@InjectView(R.id.textView) 			
-	EditText 	questionText;
-	@InjectView(R.id.errorTextView) 	
-	TextView 	errorText;
-	@InjectView(R.id.submitButton) 		
-	Button 		submitQuestion;
-	@InjectView(R.id.newPictureButton) 	
-	Button 		cameraButton;
-	@InjectView(R.id.existingPictureButton) 
-	Button  photoGalleryButton;
+	@InjectView(R.id.imageView1) 		ImageView 	imageView;
+	@InjectView(R.id.userName) 			EditText 	userName;
+	@InjectView(R.id.questionTextView) 	EditText 	questionText;
+	@InjectView(R.id.errorTextView) 	TextView 	errorText;
+	@InjectView(R.id.submitButton) 		Button 		submitButton;
+	@InjectView(R.id.newPictureButton) 	Button 		cameraButton;
+	@InjectView(R.id.existingPictureButton) Button  photoGalleryButton;
 	
 	
 	@Override
@@ -70,7 +63,7 @@ public class TakePictureActivity extends RoboSherlockActivity {
 			}
 		});
 
-        submitQuestion.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Upload();
@@ -87,8 +80,8 @@ public class TakePictureActivity extends RoboSherlockActivity {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
  
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
+            Cursor cursor = getContentResolver().query(
+            		selectedImage, filePathColumn, null, null, null);
             cursor.moveToFirst();
  
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
@@ -96,6 +89,9 @@ public class TakePictureActivity extends RoboSherlockActivity {
             cursor.close();
              
             setImageInView(BitmapFactory.decodeFile(picturePath));
+            
+            //TODO: test with ImageLoader library
+            //ImageLoader.getInstance().displayImage(picturePath, imageView);
         }
     
 		if(requestCode == CAMERA_REQUEST) {
@@ -104,12 +100,13 @@ public class TakePictureActivity extends RoboSherlockActivity {
 	}
 	
 	private void setImageInView(Bitmap photo){
+		//TODO: test with ImageLoader library
 		imageView.setImageBitmap(photo);
 		uploadedImage = photo;
 		
         imageView.setVisibility(View.VISIBLE);
 		questionText.setVisibility(View.VISIBLE);
-		submitQuestion.setVisibility(View.VISIBLE);
+		submitButton.setVisibility(View.VISIBLE);
 		errorText.setVisibility(View.INVISIBLE);
 		userName.setVisibility(View.VISIBLE);
 	}

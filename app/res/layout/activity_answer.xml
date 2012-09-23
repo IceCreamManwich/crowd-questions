@@ -11,7 +11,7 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/answer_imageView"
+        android:id="@+id/ansImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -19,19 +19,19 @@
          />
 
     <TextView
-        android:id="@+id/answer_questionTextView"
+        android:id="@+id/ansQuestionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	<TableLayout
-	    android:id="@+id/answer_tablelayout"
+	    android:id="@+id/ansTableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 	    />
 
     <EditText
-        android:id="@+id/editTextAnswer"
+        android:id="@+id/ansEditAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"
@@ -40,7 +40,7 @@
     </EditText>
     
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/ansButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"

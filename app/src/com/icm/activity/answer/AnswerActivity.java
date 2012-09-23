@@ -6,15 +6,19 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectExtra;
+import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
 import com.google.gson.Gson;
 import com.icm.Constants;
 import com.icm.R;
@@ -25,28 +29,32 @@ import com.icm.pojo.BeanLoader.Callback;
 import com.icm.pojo.ImageBean;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class AnswerActivity extends SherlockActivity implements Callback<AnswerResultBean>{
+@ContentView(R.layout.activity_answer)
+public class AnswerActivity extends RoboSherlockActivity implements Callback<AnswerResultBean>{
+
+	@InjectView(R.id.ansImageView)		ImageView	imageView;
+	@InjectView(R.id.ansQuestionText)	TextView	textView;
+	@InjectView(R.id.ansEditAnswer)		EditText	answerEditText;
+	@InjectView(R.id.ansButton)			Button		submitButton;
+	@InjectView(R.id.ansTableLayout)	TableLayout tableLayout;
 	
+	//TODO: test this?
 	private ImageBean bean;
+	@InjectExtra("imagebean") void setImageBean(String json) {
+		this.bean = new Gson().fromJson(json, ImageBean.class);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_answer);
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-		String json = getIntent().getStringExtra("imagebean");
-		this.bean = new Gson().fromJson(json, ImageBean.class);
 		
 		BeanLoader.loadBean(AnswerResultBean.class, Constants.ANSWERS_URL + bean.pic_id, this);
 		
-		ImageView imageView = (ImageView) findViewById(R.id.answer_imageView);
 		ImageLoader.getInstance().displayImage(Constants.IMAGES_DIRECTORY + bean.path, imageView);
-		
-		final EditText answerEditText = (EditText) findViewById(R.id.editTextAnswer);
 
-		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+		submitButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			@SuppressWarnings("unchecked") 
@@ -68,10 +76,7 @@ public class AnswerActivity extends SherlockActivity implements Callback<AnswerR
 	@Override
 	public void beanLoaded(AnswerResultBean resultBean) {
 
-		TextView textView = (TextView) findViewById(R.id.answer_questionTextView);
 		textView.setText(this.bean.question);
-
-		final TableLayout tableLayout = (TableLayout) findViewById(R.id.answer_tablelayout);
 		
 		for(AnswerBean answerBean : resultBean.result) {
 			
