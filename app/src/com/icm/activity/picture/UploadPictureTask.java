@@ -37,6 +37,9 @@ class UploadPictureTask extends AsyncTask<UploadArgs, Void, Void> {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             arg.image.compress(Bitmap.CompressFormat.JPEG, 90, new Base64OutputStream(baos, Base64.DEFAULT));
             
+            // apparently we need to flush?
+            baos.flush();
+            
             // Add your data
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);            
             nameValuePairs.add(new BasicNameValuePair("file", baos.toString()));
