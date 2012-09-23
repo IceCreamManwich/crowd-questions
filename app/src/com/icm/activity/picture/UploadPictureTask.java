@@ -16,6 +16,7 @@ import org.apache.http.message.BasicNameValuePair;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.util.Base64OutputStream;
 
 import com.icm.Constants;
 import com.icm.pojo.UploadArgs;
@@ -32,16 +33,13 @@ class UploadPictureTask extends AsyncTask<UploadArgs, Void, Void> {
         HttpPost httppost = new HttpPost(Constants.SERVER_ROOT + "upload.php");
 
         try {
+        	
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            arg.image.compress(Bitmap.CompressFormat.JPEG, 90, new Base64OutputStream(baos, Base64.DEFAULT));
+            
             // Add your data
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-            
-            ByteArrayOutputStream bao = new ByteArrayOutputStream();
-            arg.image.compress(Bitmap.CompressFormat.JPEG, 90, bao);
-            byte [] ba = bao.toByteArray();
-            int flags = Base64.DEFAULT;
-            String ba1=Base64.encodeToString(ba, flags);
-            
-            nameValuePairs.add(new BasicNameValuePair("file", ba1));
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);            
+            nameValuePairs.add(new BasicNameValuePair("file", baos.toString()));
             nameValuePairs.add(new BasicNameValuePair("username", arg.username));
             nameValuePairs.add(new BasicNameValuePair("question", arg.question));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
