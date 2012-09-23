@@ -32,9 +32,11 @@ public class AnswerTableLayout extends TableLayout implements Callback<AnswerRes
 			@Override
 			protected List<View> doInBackground(AnswerBean... params) {
 				
+				final Context context = getContext();
 				List<View> views = new ArrayList<View>(params.length); 
+				
 				for(AnswerBean bean : params) {
-					View row = inflate(getContext(), R.layout.answer_row, null);
+					View row = inflate(context, R.layout.answer_row, null);
 					
 					TextView answerView = (TextView) row.findViewById(R.id.answerText);
 					answerView.setText(bean.user + " -- " + bean.answer);

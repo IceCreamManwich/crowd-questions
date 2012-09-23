@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
-import com.google.gson.Gson;
 import com.icm.Constants;
 import com.icm.R;
 import com.icm.pojo.AnswerResultBean;
@@ -35,13 +34,8 @@ public class AnswerActivity extends RoboSherlockActivity {
 	@InjectView(R.id.ansButton)			Button		submitButton;
 	@InjectView(R.id.ansTableLayout)	AnswerTableLayout tableLayout;
 	
-	//TODO: test this?
-	ImageBean imageBean;
-	@InjectExtra("imagebean") void setImageBean(String json) {
-		imageBean = new Gson().fromJson(json, ImageBean.class);
-		/* is there any way to guarantee the other views would be set
-		 * before this function is called */
-	}
+	@InjectExtra("imagebean")	ImageBean	imageBean;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

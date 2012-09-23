@@ -10,7 +10,6 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.gson.Gson;
 import com.icm.Constants;
 import com.icm.R;
 import com.icm.activity.answer.AnswerActivity;
@@ -61,10 +60,10 @@ public class MainActivity extends SherlockListActivity implements BeanLoader.Cal
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 
-		String json = new Gson().toJson(getListAdapter().getItem((int)id), ImageBean.class);
+		ImageBean imageBean = (ImageBean) getListAdapter().getItem((int)id);
 		
 		Intent intent = new Intent(this, AnswerActivity.class);
-		intent.putExtra("imagebean", json);		
+		intent.putExtra("imagebean", imageBean);
 		startActivity(intent);
 	}
 

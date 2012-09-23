@@ -1,7 +1,8 @@
 package com.icm.pojo;
 
+import java.io.Serializable;
 
-public class ImageBean {
+public class ImageBean implements Serializable {
 
 	public int pic_id;
 	public String user;
