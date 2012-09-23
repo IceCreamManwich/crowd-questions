@@ -1,6 +1,7 @@
 package com.icm.activity.picture;
 
-
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -16,36 +17,41 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
 import com.icm.R;
 import com.icm.pojo.UploadArgs;
 
-public class TakePictureActivity extends SherlockActivity {
+@ContentView(R.layout.activity_takepicture)
+public class TakePictureActivity extends RoboSherlockActivity {
+	
 	private static final int CAMERA_REQUEST = 1000;
 	private static final int RESULT_LOAD_IMAGE = 1001;
-	private ImageView imageView;
-	private EditText questionText;
-	private Button submitQuestion;
-	private TextView errorText;
-	private EditText userName;
-	private Bitmap uploadedImage;
+	
+	private Bitmap uploadedImage = null;
+
+	@InjectView(R.id.imageView1) 		
+	ImageView 	imageView;
+	@InjectView(R.id.userName) 			
+	EditText 	userName;
+	@InjectView(R.id.textView) 			
+	EditText 	questionText;
+	@InjectView(R.id.errorTextView) 	
+	TextView 	errorText;
+	@InjectView(R.id.submitButton) 		
+	Button 		submitQuestion;
+	@InjectView(R.id.newPictureButton) 	
+	Button 		cameraButton;
+	@InjectView(R.id.existingPictureButton) 
+	Button  photoGalleryButton;
+	
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        uploadedImage = null;
-        
-        setContentView(R.layout.activity_takepicture);
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.imageView = (ImageView)this.findViewById(R.id.imageView1);
-        this.questionText = (EditText)this.findViewById(R.id.textView);
-        this.userName = (EditText)this.findViewById(R.id.userName);
-        this.errorText = (TextView)this.findViewById(R.id.errorTextView);
-        Button cameraButton = (Button) this.findViewById(R.id.newPictureButton);
+		
         cameraButton.setOnClickListener(new View.OnClickListener(){
 			
 			@Override
@@ -54,7 +60,7 @@ public class TakePictureActivity extends SherlockActivity {
 				startActivityForResult(cameraIntent, CAMERA_REQUEST);
 			}
 		});
-        Button photoGalleryButton = (Button) this.findViewById(R.id.existingPictureButton);
+        
         photoGalleryButton.setOnClickListener(new View.OnClickListener(){
 			
 			@Override
@@ -63,7 +69,7 @@ public class TakePictureActivity extends SherlockActivity {
 				startActivityForResult(cameraIntent, RESULT_LOAD_IMAGE);
 			}
 		});
-        this.submitQuestion = (Button)this.findViewById(R.id.submitButton);
+
         submitQuestion.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -73,10 +79,6 @@ public class TakePictureActivity extends SherlockActivity {
 		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return super.onCreateOptionsMenu(menu);
-	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -162,12 +164,4 @@ public class TakePictureActivity extends SherlockActivity {
 		this.finish();
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == android.R.id.home) {
-			onBackPressed();
-		}
-		
-		return true;
-	}
 }

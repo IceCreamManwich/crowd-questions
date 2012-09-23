@@ -3,6 +3,7 @@ package com.icm.activity.picture;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +56,11 @@ class UploadPictureTask extends AsyncTask<UploadArgs, Void, Void> {
             
         } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-        }
+        } catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		} 
         return null;
 	}
 
