@@ -78,6 +78,7 @@ public class MainActivity extends SherlockListActivity implements BeanLoader.Cal
 		item.setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT | MenuItem.SHOW_AS_ACTION_ALWAYS);
 		//item.setTitleCondensed("New");
 		item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				Intent intent = new Intent();
 		        intent.setClass(context, TakePictureActivity.class);
